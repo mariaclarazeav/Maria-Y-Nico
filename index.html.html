@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mari & Nico 💕 — La Historia en Datos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --pink: #FF6B9D;
+    --pink-light: #FFB3CC;
+    --rose: #FF4D7E;
+    --purple: #9B5DE5;
+    --purple-light: #C77DFF;
+    --yellow: #FFD60A;
+    --teal: #00C9A7;
+    --dark: #1A0A2E;
+    --card: #2D1B4E;
+    --text: #F0E6FF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 0%, #3d1a6e 0%, var(--dark) 70%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239B5DE5' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .floating-hearts {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .floating-hearts span {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(100vh) scale(0.5) rotate(-15deg); opacity: 0; }
+    10%  { opacity: 0.7; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-100px) scale(1.2) rotate(15deg); opacity: 0; }
+  }
+
+  .hero-date-badge {
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff 0%, var(--pink-light) 50%, var(--purple-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero h1 .amp {
+    color: var(--pink);
+    -webkit-text-fill-color: var(--pink);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: rgba(240,230,255,0.65);
+    max-width: 500px;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-mega-stat {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--yellow), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .hero-stat .label {
+    font-size: 0.8rem;
+    color: rgba(240,230,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0.25rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(240,230,255,0.4);
+    font-size: 0.75rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 5rem 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    color: #fff;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--pink-light);
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--pink), var(--purple), var(--teal));
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 3rem 2rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.55rem;
+    top: 0.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--pink);
+    border: 3px solid var(--dark);
+    box-shadow: 0 0 12px var(--pink);
+  }
+
+  .timeline-date {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--pink);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-desc {
+    color: rgba(240,230,255,0.65);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 500px;
+  }
+
+  .timeline-emoji {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── STAT CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 1.75rem;
+    border: 1px solid rgba(155,93,229,0.2);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--card-accent, var(--purple));
+    opacity: 0.12;
+    transform: translate(40px, -40px);
+  }
+
+  .card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+
+  .card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-label {
+    font-size: 0.85rem;
+    color: rgba(240,230,255,0.6);
+    font-weight: 500;
+  }
+
+  .card-sub {
+    font-size: 0.75rem;
+    color: rgba(240,230,255,0.35);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .card.pink  { --card-accent: var(--pink); }
+  .card.rose  { --card-accent: var(--rose); }
+  .card.teal  { --card-accent: var(--teal); }
+  .card.yellow{ --card-accent: var(--yellow); }
+  .card.purple{ --card-accent: var(--purple-light); }
+
+  .card.pink  .card-num { color: var(--pink); }
+  .card.rose  .card-num { color: #FF8FA3; }
+  .card.teal  .card-num { color: var(--teal); }
+  .card.yellow .card-num { color: var(--yellow); }
+  .card.purple .card-num { color: var(--purple-light); }
+
+  /* ── VS BATTLE ── */
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .vs-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(155,93,229,0.2);
+  }
+
+  .vs-card.mc { border-top: 3px solid var(--pink); }
+  .vs-card.ni { border-top: 3px solid var(--purple); }
+
+  .vs-name {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .vs-card.mc .vs-name { color: var(--pink); }
+  .vs-card.ni .vs-name { color: var(--purple-light); }
+
+  .vs-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.9rem;
+  }
+
+  .vs-row:last-child { border-bottom: none; }
+
+  .vs-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  .vs-card.mc .vs-big { color: var(--pink); }
+  .vs-card.ni .vs-big { color: var(--purple-light); }
+
+  .vs-mid {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(240,230,255,0.15);
+    letter-spacing: -2px;
+  }
+
+  /* ── BAR CHART ── */
+  .bar-chart { margin-bottom: 1rem; }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .bar-label {
+    width: 50px;
+    font-size: 0.78rem;
+    color: rgba(240,230,255,0.55);
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 10px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--bar-from, var(--pink)), var(--bar-to, var(--purple)));
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .bar-val {
+    width: 40px;
+    font-size: 0.78rem;
+    color: rgba(240,230,255,0.55);
+    flex-shrink: 0;
+  }
+
+  /* ── MONTH CHART ── */
+  .month-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 120px;
+    padding-top: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .month-bar-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .month-bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    background: linear-gradient(to top, var(--pink), var(--purple-light));
+    min-height: 2px;
+    transition: height 1.2s cubic-bezier(0.22,1,0.36,1);
+    position: relative;
+    cursor: default;
+  }
+
+  .month-bar:hover::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card);
+    color: var(--text);
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+    margin-bottom: 4px;
+    border: 1px solid rgba(155,93,229,0.4);
+  }
+
+  .month-tick {
+    font-size: 0.55rem;
+    color: rgba(240,230,255,0.3);
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    white-space: nowrap;
+  }
+
+  /* ── FUN FACTS ── */
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .fact-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 1.75rem;
+    border: 1px solid rgba(155,93,229,0.15);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: transform 0.3s ease;
+  }
+
+  .fact-card:hover { transform: translateY(-3px); }
+
+  .fact-emoji {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .fact-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    color: #fff;
+  }
+
+  .fact-desc {
+    font-size: 0.88rem;
+    color: rgba(240,230,255,0.6);
+    line-height: 1.55;
+  }
+
+  .fact-highlight {
+    color: var(--pink-light);
+    font-weight: 600;
+  }
+
+  /* ── LOVE METER ── */
+  .love-meter {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255,107,157,0.25);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .love-meter::before {
+    content: '💕';
+    position: absolute;
+    font-size: 8rem;
+    opacity: 0.04;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+
+  .love-percent {
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--pink), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .love-label {
+    font-size: 1.1rem;
+    color: rgba(240,230,255,0.65);
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 4rem 1.5rem;
+    color: rgba(240,230,255,0.3);
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  footer .footer-heart {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.15); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.1); }
+    56% { transform: scale(1); }
+  }
+
+  footer strong { color: var(--pink-light); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .vs-grid { grid-template-columns: 1fr; }
+    .vs-mid { display: none; }
+    .hero-mega-stat { gap: 1.5rem; }
+  }
+
+  /* Divider */
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    border-radius: 3px;
+    margin: 0 auto 3rem;
+  }
+
+  .full-divider {
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(155,93,229,0.3), transparent);
+  }
+</style>
+</head>
+<body>
+
+<!-- FLOATING HEARTS -->
+<div class="floating-hearts" id="hearts"></div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="hero">
+  <div class="hero-date-badge">28 Oct 2023 — hoy</div>
+  <h1>Mari <span class="amp">&</span> Nico</h1>
+  <p class="hero-sub">2 años y 7 meses de mensajes, audios, stickers y demasiado amor documentado en datos 💜</p>
+
+  <div class="hero-mega-stat">
+    <div class="hero-stat">
+      <div class="num">41.568</div>
+      <div class="label">mensajes totales</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">2 años</div>
+      <div class="label">y 7 meses juntos</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">9.417</div>
+      <div class="label">audios enviados</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">174.385</div>
+      <div class="label">palabras escritas</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    ↓ &nbsp; sigue scrolleando
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- ══════════════ TIMELINE ══════════════ -->
+<section>
+  <div class="section-label">El comienzo</div>
+  <h2 class="section-title">Cómo empezó <em>todo</em></h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-emoji">🕺💃</div>
+      <div class="timeline-date">28 Octubre 2023 · 4:48 a.m.</div>
+      <div class="timeline-title">El primer mensaje</div>
+      <div class="timeline-desc">
+        La historia empieza literalmente en la madrugada, después de una noche de baile. Nico le escribe a Mari: <em>"Eres mucho más que eso. Gracias por la noche de hoy. Descansa mi bailarina hermosa 😘"</em> — y desde ese momento, el chat nunca paró.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: var(--purple);"></div>
+      <div class="timeline-emoji">🌪️</div>
+      <div class="timeline-date">Nov – Dic 2023</div>
+      <div class="timeline-title">El boom inicial</div>
+      <div class="timeline-desc">
+        Los primeros dos meses completos fueron de los más activos de toda la relación: <strong>1.683 mensajes en noviembre</strong> y 1.564 en diciembre. Cuando te gustas de verdad, el teléfono no para.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: var(--teal);"></div>
+      <div class="timeline-emoji">📈</div>
+      <div class="timeline-date">Octubre 2024</div>
+      <div class="timeline-title">El mes más intenso</div>
+      <div class="timeline-desc">
+        Con <strong>2.165 mensajes</strong>, octubre 2024 fue el mes con más actividad de toda su historia. ¿Qué pasó ese mes? Solo ustedes lo saben 👀
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: var(--yellow);"></div>
+      <div class="timeline-emoji">📱</div>
+      <div class="timeline-date">28 Junio 2025</div>
+      <div class="timeline-title">Nuevo número, mismo amor</div>
+      <div class="timeline-desc">
+        Nico cambió de número y el chat se mudó a <strong>✨Novio Nicolás Yarce✨❤️</strong> — el nombre del contacto es literalmente un mood. El amor sobrevivió la portabilidad.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: var(--pink);"></div>
+      <div class="timeline-emoji">💫</div>
+      <div class="timeline-date">28 Mayo 2026 · hoy</div>
+      <div class="timeline-title">Siguen escribiéndose</div>
+      <div class="timeline-desc">
+        El último mensaje fue esta misma mañana. 2 años y 7 meses después, el chat sigue activo. Eso se llama consistencia, y en el amor, eso vale mucho.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ══════════════ STATS CARDS ══════════════ -->
+<section>
+  <div class="section-label">Los números no mienten</div>
+  <h2 class="section-title">Stats que te van a <em>impresionar</em></h2>
+
+  <div class="cards-grid">
+    <div class="card pink">
+      <div class="card-icon">💬</div>
+      <div class="card-num">41.568</div>
+      <div class="card-label">mensajes totales</div>
+      <div class="card-sub">~45 mensajes por día en promedio</div>
+    </div>
+    <div class="card teal">
+      <div class="card-icon">🎙️</div>
+      <div class="card-num">9.417</div>
+      <div class="card-label">audios enviados</div>
+      <div class="card-sub">cuando escribir no es suficiente</div>
+    </div>
+    <div class="card yellow">
+      <div class="card-icon">📸</div>
+      <div class="card-num">3.045</div>
+      <div class="card-label">fotos compartidas</div>
+      <div class="card-sub">Mari: 2.372 · Nico: 673</div>
+    </div>
+    <div class="card purple">
+      <div class="card-icon">🎬</div>
+      <div class="card-num">604</div>
+      <div class="card-label">videos enviados</div>
+      <div class="card-sub">Mari: 472 · Nico: 132</div>
+    </div>
+    <div class="card rose">
+      <div class="card-icon">🫶</div>
+      <div class="card-num">874</div>
+      <div class="card-label">stickers de amor</div>
+      <div class="card-sub">MC: 562 · Nico: 312</div>
+    </div>
+    <div class="card pink">
+      <div class="card-icon">✍️</div>
+      <div class="card-num">174K</div>
+      <div class="card-label">palabras escritas</div>
+      <div class="card-sub">equivale a ~2 novelas completas</div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ══════════════ VS BATTLE ══════════════ -->
+<section>
+  <div class="section-label">El duelo eterno</div>
+  <h2 class="section-title">Mari <em>vs</em> Nico</h2>
+
+  <div class="vs-grid">
+    <div class="vs-card mc">
+      <div class="vs-name">✨ Mari ✨</div>
+      <div class="vs-row">
+        <span>Mensajes</span>
+        <span class="vs-big">22.743</span>
+      </div>
+      <div class="vs-row">
+        <span>Palabras</span>
+        <span class="vs-big">77.888</span>
+      </div>
+      <div class="vs-row">
+        <span>Audios</span>
+        <span class="vs-big">3.878</span>
+      </div>
+      <div class="vs-row">
+        <span>Fotos</span>
+        <span class="vs-big">2.372</span>
+      </div>
+      <div class="vs-row">
+        <span>Videos</span>
+        <span class="vs-big">472</span>
+      </div>
+      <div class="vs-row">
+        <span>Stickers</span>
+        <span class="vs-big">562</span>
+      </div>
+      <div class="vs-row">
+        <span>Msgs de amor</span>
+        <span class="vs-big">1.030</span>
+      </div>
+    </div>
+
+    <div class="vs-mid">VS</div>
+
+    <div class="vs-card ni">
+      <div class="vs-name">💜 Nico 💜</div>
+      <div class="vs-row">
+        <span>Mensajes</span>
+        <span class="vs-big">18.825</span>
+      </div>
+      <div class="vs-row">
+        <span>Palabras</span>
+        <span class="vs-big">96.497</span>
+      </div>
+      <div class="vs-row">
+        <span>Audios</span>
+        <span class="vs-big">4.534</span>
+      </div>
+      <div class="vs-row">
+        <span>Fotos</span>
+        <span class="vs-big">673</span>
+      </div>
+      <div class="vs-row">
+        <span>Videos</span>
+        <span class="vs-big">132</span>
+      </div>
+      <div class="vs-row">
+        <span>Stickers</span>
+        <span class="vs-big">312</span>
+      </div>
+      <div class="vs-row">
+        <span>Msgs de amor</span>
+        <span class="vs-big">2.570</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="facts-grid" style="margin-top: 1.5rem;">
+    <div class="fact-card">
+      <div class="fact-emoji">📨</div>
+      <div>
+        <div class="fact-title">Mari escribe más mensajes</div>
+        <div class="fact-desc">Con 22.743 vs 18.825, Mari manda el <span class="fact-highlight">54,7% de todos los mensajes</span>. El que abre el chat no siempre es quien más quiere — pero en este caso, sí 😏</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">📖</div>
+      <div>
+        <div class="fact-title">Nico escribe mensajes más largos</div>
+        <div class="fact-desc">A pesar de mandar menos mensajes, Nico escribió <span class="fact-highlight">96.497 palabras</span> — 24% más que Mari. Menos cantidad, más profundidad 🧠</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">🎙️</div>
+      <div>
+        <div class="fact-title">Nico es el rey del audio</div>
+        <div class="fact-desc">4.534 audios de Nico vs 3.878 de Mari. Al señor le encanta hablar. Probablemente sus audios también duran más 🎤</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">📸</div>
+      <div>
+        <div class="fact-title">Mari es la fotógrafa oficial</div>
+        <div class="fact-desc">2.372 fotos de Mari vs 673 de Nico. Ella comparte <span class="fact-highlight">3.5 veces más fotos</span>. Nico: aprecia eso 🤳</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">❤️</div>
+      <div>
+        <div class="fact-title">Nico dice "amor" más seguido</div>
+        <div class="fact-desc">2.570 mensajes de Nico con palabras cariñosas vs 1.030 de Mari. El hombre es un romántico, y los datos lo confirman 💜</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">🏆</div>
+      <div>
+        <div class="fact-title">¿Quién gana overall?</div>
+        <div class="fact-desc">Mari gana en cantidad, Nico gana en palabras y amor expresado. <span class="fact-highlight">Empate técnico.</span> Pero la que inició el chat de "✨Novio✨❤️" sabe bien cómo se llama la cosa 😂</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ══════════════ HORAS ══════════════ -->
+<section>
+  <div class="section-label">El reloj del amor</div>
+  <h2 class="section-title">¿A qué hora <em>más hablan</em>?</h2>
+
+  <div class="bar-chart" id="hourChart"></div>
+
+  <div class="facts-grid" style="margin-top: 2rem;">
+    <div class="fact-card">
+      <div class="fact-emoji">🌙</div>
+      <div>
+        <div class="fact-title">Las 9 PM son las reinas</div>
+        <div class="fact-desc">La hora pico es las <span class="fact-highlight">21h con 3.292 mensajes</span>. Después de un día largo, siempre se cuentan cómo les fue.</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">🌅</div>
+      <div>
+        <div class="fact-title">Buenos días de verdad</div>
+        <div class="fact-desc">Las horas de la mañana (8h–11h) tienen altísima actividad. Esta pareja no espera hasta el mediodía para decirse cosas bonitas.</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">🦉</div>
+      <div>
+        <div class="fact-title">También trasnochados</div>
+        <div class="fact-desc">Con 930 mensajes a medianoche y 375 a la 1 AM, hay noches que se vuelven madrugadas charlando. El primer mensaje de la historia llegó a las 4:48 AM 👀</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ══════════════ MESES ══════════════ -->
+<section>
+  <div class="section-label">Actividad por mes</div>
+  <h2 class="section-title">La montaña <em>rusa</em> del chat</h2>
+
+  <div class="month-chart" id="monthChart"></div>
+
+  <div class="cards-grid" style="margin-top: 1.5rem;">
+    <div class="card pink">
+      <div class="card-icon">🔥</div>
+      <div class="card-num">Oct '24</div>
+      <div class="card-label">Mes más activo</div>
+      <div class="card-sub">2.165 mensajes en un solo mes</div>
+    </div>
+    <div class="card teal">
+      <div class="card-icon">🌱</div>
+      <div class="card-num">Oct '23</div>
+      <div class="card-label">Mes de inicio</div>
+      <div class="card-sub">167 mensajes — solo 3 días de chat</div>
+    </div>
+    <div class="card purple">
+      <div class="card-icon">📉</div>
+      <div class="card-num">Mar '24</div>
+      <div class="card-label">Mes más tranquilo</div>
+      <div class="card-sub">434 mensajes — ¿vacaciones? ¿juntos en persona?</div>
+    </div>
+    <div class="card yellow">
+      <div class="card-icon">⚡</div>
+      <div class="card-num">31 meses</div>
+      <div class="card-label">Sin romper la racha</div>
+      <div class="card-sub">Ningún mes sin mensajes en toda la historia</div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ══════════════ FUN FACTS ══════════════ -->
+<section>
+  <div class="section-label">Datos curiosos</div>
+  <h2 class="section-title">Fun facts que <em>nadie pidió</em></h2>
+
+  <div class="facts-grid">
+    <div class="fact-card">
+      <div class="fact-emoji">📚</div>
+      <div>
+        <div class="fact-title">Escribieron 2 novelas</div>
+        <div class="fact-desc">Con <span class="fact-highlight">174.385 palabras</span>, sus chats equivalen a dos novelas de longitud media. Solo que en vez de protagonistas ficticios, son ustedes dos.</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">🎵</div>
+      <div>
+        <div class="fact-title">Horas de audios</div>
+        <div class="fact-desc">9.417 audios enviados. Si cada audio dura ~30 segundos en promedio, son <span class="fact-highlight">más de 78 horas</span> solo de mensajes de voz. Una semana entera hablando.</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">☀️</div>
+      <div>
+        <div class="fact-title">945 días activos</div>
+        <div class="fact-desc">Desde el 28 de octubre de 2023 hasta hoy hay ~945 días. Con 41.568 mensajes eso es <span class="fact-highlight">1 mensaje cada 33 minutos</span>, 24/7, sin parar.</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">🌙</div>
+      <div>
+        <div class="fact-title">El chat empezó de madrugada</div>
+        <div class="fact-desc">El primer mensaje llegó a las <span class="fact-highlight">4:48 AM</span> del 28 de octubre. Eso no es un mensaje casual — eso es que alguien no podía dormir pensando en otra persona.</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">🎭</div>
+      <div>
+        <div class="fact-title">El nombre del contacto lo dice todo</div>
+        <div class="fact-desc">El chat original era "+57 321 758 1588". Ahora es <span class="fact-highlight">"✨Novio Nicolás Yarce✨❤️"</span>. Ese cambio de nombre resume toda una evolución.</div>
+      </div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-emoji">💌</div>
+      <div>
+        <div class="fact-title">3.600 mensajes de puro amor</div>
+        <div class="fact-desc">Entre los dos, más de <span class="fact-highlight">3.600 mensajes</span> contienen palabras cariñosas: amor, amore, gordo/gordita, hermoso/a, baby, corazón... La matemática del cariño.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ══════════════ LOVE METER ══════════════ -->
+<section style="text-align: center;">
+  <div class="section-label">El veredicto final</div>
+  <h2 class="section-title" style="text-align:center;">¿Cuánto amor <em>hay aquí</em>?</h2>
+  <div class="divider"></div>
+
+  <div class="love-meter">
+    <div class="love-percent">∞</div>
+    <div class="love-label">
+      41.568 mensajes, 9.417 audios, 3.045 fotos, 174.385 palabras y 2 años y 7 meses de historia no caben en ningún porcentaje.<br><br>
+      Pero si hubiera que ponerle un número... sería infinito, igual que Nico llamando a Mari <em>"mi bailarina hermosa"</em> a las 4 de la mañana en el primer mensaje. 🌙
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <span class="footer-heart">💕</span>
+  Generado con amor a partir de <strong>41.568 mensajes reales</strong><br>
+  entre <strong>Maria Clara</strong> y <strong>Nicolás</strong> · Oct 2023 – May 2026<br><br>
+  <em>Hecho con los datos de sus propios chats de WhatsApp 🤍</em>
+</footer>
+
+<script>
+// ── Floating hearts ──
+const heartsEl = document.getElementById('hearts');
+const emojis = ['💕','💜','🩷','✨','💫','🌸','❤️','🥰'];
+for (let i = 0; i < 18; i++) {
+  const s = document.createElement('span');
+  s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  s.style.left = Math.random() * 100 + 'vw';
+  s.style.animationDuration = (8 + Math.random() * 12) + 's';
+  s.style.animationDelay = (Math.random() * 15) + 's';
+  s.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+  heartsEl.appendChild(s);
+}
+
+// ── Timeline intersection observer ──
+const items = document.querySelectorAll('.timeline-item');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+items.forEach(i => obs.observe(i));
+
+// ── Hour chart ──
+const hourData = [930,375,193,62,128,168,553,1345,1626,2250,2093,2559,2690,2203,2215,1882,2150,2475,2668,2492,2683,3292,3157,1379];
+const hourChart = document.getElementById('hourChart');
+const maxH = Math.max(...hourData);
+hourData.forEach((val, h) => {
+  const pct = Math.round(val / maxH * 100);
+  const label = h < 12 ? `${h === 0 ? 12 : h} AM` : `${h === 12 ? 12 : h-12} PM`;
+  hourChart.innerHTML += `
+    <div class="bar-row">
+      <div class="bar-label">${label}</div>
+      <div class="bar-track"><div class="bar-fill" data-pct="${pct}" style="--bar-from:#FF6B9D;--bar-to:#9B5DE5;"></div></div>
+      <div class="bar-val">${val.toLocaleString('es')}</div>
+    </div>`;
+});
+
+// ── Month chart ──
+const monthData = [
+  {k:'Oct 23',v:167},{k:'Nov 23',v:1683},{k:'Dic 23',v:1564},
+  {k:'Ene 24',v:1175},{k:'Feb 24',v:823},{k:'Mar 24',v:434},{k:'Abr 24',v:1181},{k:'May 24',v:1382},{k:'Jun 24',v:1200},{k:'Jul 24',v:1309},{k:'Ago 24',v:1489},{k:'Sep 24',v:1109},{k:'Oct 24',v:2165},{k:'Nov 24',v:1831},{k:'Dic 24',v:1588},
+  {k:'Ene 25',v:1448},{k:'Feb 25',v:1602},{k:'Mar 25',v:1365},{k:'Abr 25',v:1292},{k:'May 25',v:1381},{k:'Jun 25',v:1439},{k:'Jul 25',v:1477},{k:'Ago 25',v:1346},{k:'Sep 25',v:1335},{k:'Oct 25',v:1599},{k:'Nov 25',v:1176},{k:'Dic 25',v:1600},
+  {k:'Ene 26',v:971},{k:'Feb 26',v:857},{k:'Mar 26',v:1271},{k:'Abr 26',v:1062},{k:'May 26',v:1247}
+];
+const maxM = Math.max(...monthData.map(d=>d.v));
+const mc = document.getElementById('monthChart');
+monthData.forEach(d => {
+  const h = Math.max(4, Math.round(d.v / maxM * 100));
+  mc.innerHTML += `
+    <div class="month-bar-wrap">
+      <div class="month-bar" style="height:${h}%" data-label="${d.k}: ${d.v.toLocaleString('es')} msgs"></div>
+      <div class="month-tick">${d.k}</div>
+    </div>`;
+});
+
+// ── Animate bars on scroll ──
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.bar-fill').forEach(b => {
+        b.style.width = b.dataset.pct + '%';
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+barObs.observe(hourChart);
+</script>
+</body>
+</html>
